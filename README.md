@@ -2,6 +2,8 @@
 
 Balanced Bangla-email dataset + classification experiments (thesis data-creation step).
 
+**Reproducibility:** see [REPRODUCIBILITY.md](REPRODUCIBILITY.md) — pinned env, global seed 42, per-step run commands.
+
 # Bangla Email Dataset — Data Creation Report
 
 Generation model: `Qwen/Qwen2.5-3B-Instruct` · wall-clock: n/a
@@ -116,6 +118,39 @@ Spearman ρ(k, entropy) = **-0.286** (p=0.535) — negative (supports the hypoth
 
 
 ![uncertainty 3b](figures/fig6_uncertainty_3b.png)
+
+
+## Word Sense Disambiguation (Bangla homonyms)
+
+A self-contained, gold-labelled benchmark of ambiguous Bangla words (e.g. **চাল** = uncooked rice / a clever move / a roof; **মান** = quality / honor / mathematical value). Lexical-sample WSD: given the word, a context sentence and the candidate sense glosses, the model picks the right sense. Zero-shot and few-shot (demonstrations drawn from *other* words — no leakage).
+
+
+**Qwen2.5-3B-Instruct** — 56 instances, best **94.6%** at k=3:
+
+|   shots (k) |   WSD accuracy % |   n |
+|------------:|-----------------:|----:|
+|           0 |             76.8 |  56 |
+|           1 |             80.4 |  56 |
+|           3 |             94.6 |  56 |
+|           5 |             91.1 |  56 |
+
+
+![wsd 3b](figures/fig9_wsd_3b.png)
+![wsd per-word 3b](figures/fig9b_wsd_perword_3b.png)
+
+
+**Qwen2.5-32B-Instruct** — 56 instances, best **100.0%** at k=1:
+
+|   shots (k) |   WSD accuracy % |   n |
+|------------:|-----------------:|----:|
+|           0 |             98.2 |  56 |
+|           1 |            100   |  56 |
+|           3 |            100   |  56 |
+|           5 |            100   |  56 |
+
+
+![wsd 32b](figures/fig9_wsd_32b.png)
+![wsd per-word 32b](figures/fig9b_wsd_perword_32b.png)
 
 
 ## Fine-tuning (LoRA) — the >0.70 result

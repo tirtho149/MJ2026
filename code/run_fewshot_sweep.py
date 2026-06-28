@@ -31,6 +31,7 @@ def main():
     ap.add_argument("--gpu-mem-util", type=float, default=0.90)
     ap.add_argument("--out-dir", default=config.DATA_DIR)
     args = ap.parse_args()
+    config.seed_everything(config.SEED)
 
     shots = [int(s) for s in args.shots.split(",")]
     df = pd.read_csv(args.data)

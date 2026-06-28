@@ -102,10 +102,35 @@ def uncertainty_section(tag, title):
     return True
 
 
+def wsd_section():
+    tags = [("3b", "Qwen2.5-3B-Instruct"), ("32b", "Qwen2.5-32B-Instruct")]
+    have = [(t, name) for t, name in tags if os.path.exists(os.path.join(D, f"wsd_{t}.csv"))]
+    if not have:
+        return False
+    md.append("\n## Word Sense Disambiguation (Bangla homonyms)\n")
+    md.append("A self-contained, gold-labelled benchmark of ambiguous Bangla words "
+              "(e.g. **চাল** = uncooked rice / a clever move / a roof; **মান** = quality / "
+              "honor / mathematical value). Lexical-sample WSD: given the word, a context "
+              "sentence and the candidate sense glosses, the model picks the right sense. "
+              "Zero-shot and few-shot (demonstrations drawn from *other* words — no leakage).\n")
+    for t, name in have:
+        df = pd.read_csv(os.path.join(D, f"wsd_{t}.csv"))
+        df["accuracy"] = (df["accuracy"] * 100).round(1)
+        best = df.loc[df["accuracy"].idxmax()]
+        md.append(f"\n**{name}** — {int(df['n'].iloc[0])} instances, best "
+                  f"**{best['accuracy']:.1f}%** at k={int(best['k'])}:\n\n"
+                  + df.rename(columns={"k": "shots (k)", "accuracy": "WSD accuracy %", "n": "n"})
+                  .to_markdown(index=False) + "\n")
+        md.append(f"\n![wsd {t}](figures/fig9_wsd_{t}.png)\n"
+                  f"![wsd per-word {t}](figures/fig9b_wsd_perword_{t}.png)\n")
+    return True
+
+
 any_ = False
 any_ |= fewshot_section("3b", "Qwen2.5-3B-Instruct")
 any_ |= fewshot_section("32b", "Qwen2.5-32B-Instruct")
 any_ |= uncertainty_section("3b", "Qwen2.5-3B-Instruct")
+any_ |= wsd_section()
 any_ |= finetune_section()
 
 if not any_:

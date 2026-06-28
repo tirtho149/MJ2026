@@ -27,6 +27,7 @@ def main():
     ap.add_argument("--max-model-len", type=int, default=2048)
     ap.add_argument("--gpu-mem-util", type=float, default=0.90)
     args = ap.parse_args()
+    config.seed_everything(config.SEED)
 
     rng = random.Random(config.SEED)
 

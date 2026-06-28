@@ -1,0 +1,57 @@
+﻿word,context,gold,pred,correct
+কল,"রান্নাঘরের কলটি নষ্ট হয়ে গেছে, সারাক্ষণ পানি পড়ছে।",kol_tap,kol_tap,True
+কল,কল ছেড়ে হাত ধুয়ে নাও।,kol_tap,kol_tap,True
+কল,নতুন কলে চাল উৎপাদন শুরু হয়েছে।,kol_machine,kol_machine,True
+কল,কারখানার কলগুলো সকাল থেকে চলছে।,kol_machine,kol_machine,True
+পাতা,শীতকালে গাছের পাতা ঝরে পড়ে।,pata_leaf,pata_leaf,True
+পাতা,সবুজ পাতায় শিশির জমেছে।,pata_leaf,pata_leaf,True
+পাতা,বইয়ের প্রথম পাতাটি ছিঁড়ে গেছে।,pata_page,pata_page,True
+পাতা,খাতার শেষ পাতায় লিখে রাখো।,pata_page,pata_page,True
+চাল,বাজারে চালের দাম আবার বেড়েছে।,chal_rice,chal_rice,True
+চাল,দুই কেজি চাল কিনে আনো।,chal_rice,chal_rice,True
+চাল,তার এই চালটা কেউ বুঝতে পারেনি।,chal_move,chal_move,True
+চাল,দাবার শেষ চালে সে জিতে গেল।,chal_move,chal_move,True
+চাল,টিনের চালে বৃষ্টির শব্দ হচ্ছে।,chal_roof,chal_roof,True
+চাল,ঝড়ে ঘরের চাল উড়ে গেছে।,chal_roof,chal_roof,True
+বল,শিশুরা মাঠে বল খেলছে।,bol_ball,bol_ball,True
+বল,বলটি গোলপোস্টে ঢুকে গেল।,bol_ball,bol_ball,True
+বল,অসুখের পর শরীরে আর বল নেই।,bol_strength,bol_strength,True
+বল,সব বল দিয়ে দড়িটা টানো।,bol_strength,bol_strength,True
+বল,সত্যি কথাটা আমাকে বল।,bol_speak,bol_speak,True
+বল,"জোরে বল, শুনতে পাচ্ছি না।",bol_speak,bol_speak,True
+তাল,পাকা তাল দিয়ে মা পিঠা বানিয়েছেন।,tal_fruit,tal_fruit,True
+তাল,গাছ থেকে তাল পড়ল।,tal_fruit,tal_fruit,True
+তাল,গানের তালে তালে সবাই নাচছে।,tal_rhythm,tal_rhythm,True
+তাল,ঢোলের তাল মিলিয়ে গাইছে।,tal_rhythm,tal_rhythm,True
+সোনা,সোনার দাম আজ রেকর্ড ছুঁয়েছে।,sona_gold,sona_gold,True
+সোনা,বিয়েতে সোনার গয়না দেওয়া হলো।,sona_gold,sona_gold,True
+সোনা,"সোনা, তাড়াতাড়ি খেয়ে নাও।",sona_dear,sona_dear,True
+সোনা,"কেঁদো না সোনা, আমি আছি।",sona_dear,sona_dear,True
+ফল,প্রতিদিন টাটকা ফল খাওয়া ভালো।,phol_fruit,phol_fruit,True
+ফল,বাজার থেকে মৌসুমি ফল এনেছি।,phol_fruit,phol_fruit,True
+ফল,পরীক্ষার ফল আগামীকাল প্রকাশিত হবে।,phol_result,phol_result,True
+ফল,পরিশ্রমের ফল সে পেয়েছে।,phol_result,phol_result,True
+হার,সে গলায় সোনার হার পরেছে।,har_necklace,har_necklace,True
+হার,হারটি খুব সুন্দর দেখাচ্ছে।,har_necklace,har_necklace,True
+হার,শেষ ম্যাচে দল হার মেনেছে।,har_defeat,har_defeat,True
+হার,এত সহজে হার মানব না।,har_defeat,har_defeat,True
+হার,ব্যাংকের সুদের হার বেড়েছে।,har_rate,har_rate,True
+হার,বেকারত্বের হার কমেছে।,har_rate,har_rate,True
+মান,এই পণ্যের মান যথেষ্ট ভালো।,man_quality,man_quality,True
+মান,শিক্ষার মান উন্নত করতে হবে।,man_quality,man_quality,True
+মান,সবার সামনে তার মান রক্ষা পেল।,man_honor,man_honor,True
+মান,মান-সম্মানের ভয়ে সে চুপ রইল।,man_honor,man_honor,True
+মান,সমীকরণে x এর মান নির্ণয় করো।,man_value,man_value,True
+মান,চলকটির মান শূন্য।,man_value,man_value,True
+পান,খাওয়ার পর সে একটা পান মুখে দিল।,pan_betel,pan_betel,True
+পান,দোকানে পান-সুপারি বিক্রি হয়।,pan_betel,pan_betel,True
+পান,বিশুদ্ধ পানি পান করুন।,pan_drink,pan_drink,True
+পান,প্রতিদিন পর্যাপ্ত পানি পান করা জরুরি।,pan_drink,pan_drink,True
+দল,আমাদের দল ফাইনালে উঠেছে।,dol_team,dol_team,True
+দল,দলের সব খেলোয়াড় পরিশ্রমী।,dol_team,dol_team,True
+দল,নির্বাচনে নতুন দল অংশ নিচ্ছে।,dol_party,dol_party,True
+দল,দলটি ক্ষমতায় এসেছে।,dol_party,dol_party,True
+মাথা,সকাল থেকে আমার মাথা ব্যথা করছে।,matha_head,matha_head,True
+মাথা,রোদে মাথা ঢেকে বের হও।,matha_head,matha_head,True
+মাথা,সে এই দলের মাথা।,matha_leader,matha_leader,True
+মাথা,পরিবারের মাথা হিসেবে দায়িত্ব নিয়েছে।,matha_leader,matha_leader,True

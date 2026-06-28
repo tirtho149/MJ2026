@@ -1,19 +1,27 @@
-# The shared Nova venv (/work/mech-ai-scratch/tirtho/.venv) already provides the
-# pinned GPU stack — do NOT reinstall torch/vllm there (breaks the 2.10.0/0.19.1 pin).
-# This file documents what the package imports, for a fresh environment.
+# EXACT environment used for all reported results (Nova, python 3.11.11, CUDA 12.8).
+# The GPU stack is pinned — install matching CUDA builds only.  These are the
+# versions present in the shared venv /work/mech-ai-scratch/tirtho/.venv.
 #
-# GPU stack (pinned — install matching builds only):
-#   torch==2.10.0+cu128
-#   vllm==0.19.1
+# GPU / model stack (pinned — do not bump; vLLM<->torch ABI is version-locked):
+torch==2.10.0          # +cu128 build
+vllm==0.19.1
+transformers==5.8.1
+peft==0.19.1            # installed with --no-deps so it cannot move torch/transformers
+accelerate==1.13.0
+datasets==4.8.5
+sentencepiece==0.2.1
 #
-# Data / utilities (already present in the shared venv):
-pandas
-numpy
-scikit-learn
-openpyxl          # xlsx read/write
+# Data / metrics / plotting:
+numpy==2.4.4
+pandas==3.0.3
+scikit-learn==1.9.0
+scipy==1.17.1
+matplotlib==3.10.9
+openpyxl==3.1.5
+tabulate==0.10.0
 #
-# Optional — Bangla tokenizer + stopwords. NOT installed in the shared venv on
-# purpose (its deps can downgrade the pinned torch). preprocess.py falls back to
-# a pure-Python unicodedata tokenizer when this is absent. Install in a separate
-# venv if you want the exact bnlp BasicTokenizer behaviour.
+# Optional — Bangla tokenizer (NOT installed in the shared venv on purpose: its
+# deps can downgrade the pinned torch). bangla_email/preprocess.py falls back to
+# a pure-Python unicodedata tokenizer when absent, so results are reproducible
+# either way. Install in a SEPARATE venv if you want the exact bnlp tokenizer.
 # bnlp-toolkit

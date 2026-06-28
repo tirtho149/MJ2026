@@ -28,7 +28,7 @@ from sklearn.metrics import (accuracy_score, f1_score, confusion_matrix,
                              precision_recall_fscore_support, silhouette_score)
 from sklearn.model_selection import train_test_split
 from transformers import (AutoTokenizer, AutoModelForSequenceClassification,
-                          TrainingArguments, Trainer, DataCollatorWithPadding)
+                          TrainingArguments, Trainer, DataCollatorWithPadding, set_seed)
 from peft import LoraConfig, get_peft_model, TaskType
 
 from bangla_email import config
@@ -102,6 +102,8 @@ def main():
     ap.add_argument("--smoke", action="store_true")
     args = ap.parse_args()
 
+    config.seed_everything(config.SEED)          # python / numpy / torch
+    set_seed(config.SEED)                         # transformers (train sampling, init)
     os.makedirs(args.out_dir, exist_ok=True)
     fig_dir = os.path.join(config.DATA_DIR, "figures"); os.makedirs(fig_dir, exist_ok=True)
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -160,7 +162,8 @@ def main():
         per_device_train_batch_size=args.bs, per_device_eval_batch_size=64,
         gradient_accumulation_steps=1, learning_rate=args.lr, num_train_epochs=args.epochs,
         warmup_ratio=0.05, weight_decay=0.01, bf16=args.bf16, logging_steps=10,
-        max_grad_norm=1.0, save_total_limit=1, report_to="none", dataloader_num_workers=2)
+        max_grad_norm=1.0, save_total_limit=1, report_to="none", dataloader_num_workers=2,
+        seed=config.SEED, data_seed=config.SEED)
     trainer = Trainer(model=model, args=targs, train_dataset=ds_train, eval_dataset=ds_val,
                       processing_class=tok, data_collator=DataCollatorWithPadding(tok),
                       compute_metrics=compute_metrics)

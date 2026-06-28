@@ -53,6 +53,31 @@ SMOKE_MODEL   = "Qwen/Qwen2.5-1.5B-Instruct"
 
 SEED = 42
 
+
+def seed_everything(seed: int = SEED):
+    """Seed Python, NumPy and (if present) torch for reproducible runs.
+
+    Call once at the top of every entry point.  vLLM is seeded separately via
+    its engine ``seed=`` arg; sklearn / pandas calls pass ``random_state=SEED``.
+    """
+    import os
+    import random as _random
+    os.environ["PYTHONHASHSEED"] = str(seed)
+    _random.seed(seed)
+    try:
+        import numpy as _np
+        _np.random.seed(seed)
+    except Exception:
+        pass
+    try:
+        import torch as _torch
+        _torch.manual_seed(seed)
+        if _torch.cuda.is_available():
+            _torch.cuda.manual_seed_all(seed)
+    except Exception:
+        pass
+    return seed
+
 # ── Balancing plan ────────────────────────────────────────────────────────────
 PER_CLASS_TARGET = 3000          # every class up-sampled to this; no real data dropped
 

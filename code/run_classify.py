@@ -26,6 +26,7 @@ def main():
     ap.add_argument("--preprocess", action="store_true",
                     help="run the 13-step preprocessor and classify the cleaned text")
     args = ap.parse_args()
+    config.seed_everything(config.SEED)
 
     if args.data and os.path.exists(args.data):
         df = pd.read_csv(args.data) if args.data.endswith(".csv") else pd.read_excel(args.data)

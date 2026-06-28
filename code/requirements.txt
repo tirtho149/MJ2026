@@ -1,0 +1,19 @@
+# The shared Nova venv (/work/mech-ai-scratch/tirtho/.venv) already provides the
+# pinned GPU stack — do NOT reinstall torch/vllm there (breaks the 2.10.0/0.19.1 pin).
+# This file documents what the package imports, for a fresh environment.
+#
+# GPU stack (pinned — install matching builds only):
+#   torch==2.10.0+cu128
+#   vllm==0.19.1
+#
+# Data / utilities (already present in the shared venv):
+pandas
+numpy
+scikit-learn
+openpyxl          # xlsx read/write
+#
+# Optional — Bangla tokenizer + stopwords. NOT installed in the shared venv on
+# purpose (its deps can downgrade the pinned torch). preprocess.py falls back to
+# a pure-Python unicodedata tokenizer when this is absent. Install in a separate
+# venv if you want the exact bnlp BasicTokenizer behaviour.
+# bnlp-toolkit

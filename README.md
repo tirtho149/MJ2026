@@ -99,7 +99,7 @@ Best: **k=16** → accuracy **55.7%**, macro-F1 **0.536**.
 
 ## Fine-tuning (LoRA) — the >0.70 result
 
-`Qwen/Qwen2.5-1.5B-Instruct` LoRA-fine-tuned for 6-way classification (train=288, test=36, epochs=1.0):
+`Qwen/Qwen2.5-1.5B-Instruct` LoRA-fine-tuned for 6-way classification (train=288, test=36, epochs=2.0):
 
 
 | metric | value |

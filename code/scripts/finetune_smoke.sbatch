@@ -14,4 +14,4 @@ source /work/mech-ai-scratch/tirtho/.venv/bin/activate
 export HF_HOME=${HF_HOME:-/work/mech-ai-scratch/tirtho/.hf_cache}
 export TOKENIZERS_PARALLELISM=false
 nvidia-smi -L || true
-python finetune.py --smoke --model Qwen/Qwen2.5-1.5B-Instruct --epochs 1
+python finetune.py --smoke --model Qwen/Qwen2.5-1.5B-Instruct --epochs 2 --no-bf16 --lr 1e-4

@@ -98,6 +98,7 @@ def main():
     ap.add_argument("--lr", type=float, default=2e-4)
     ap.add_argument("--bs", type=int, default=16)
     ap.add_argument("--max-len", type=int, default=192)
+    ap.add_argument("--bf16", default=True, action=argparse.BooleanOptionalAction)
     ap.add_argument("--smoke", action="store_true")
     args = ap.parse_args()
 
@@ -130,7 +131,8 @@ def main():
     # Loading the whole model (incl. the fresh score head) in bf16 makes the
     # classification loss go NaN; fp32 weights + bf16 autocast is stable.
     model = AutoModelForSequenceClassification.from_pretrained(
-        args.model, num_labels=len(LABELS), id2label=ID2LABEL, label2id=LABEL2ID)
+        args.model, num_labels=len(LABELS), id2label=ID2LABEL, label2id=LABEL2ID,
+        problem_type="single_label_classification", attn_implementation="eager")
     model.config.pad_token_id = tok.pad_token_id
     lora = LoraConfig(task_type=TaskType.SEQ_CLS, r=16, lora_alpha=32, lora_dropout=0.05,
                       target_modules=["q_proj", "k_proj", "v_proj", "o_proj",
@@ -147,8 +149,8 @@ def main():
         load_best_model_at_end=True, metric_for_best_model="macro_f1", greater_is_better=True,
         per_device_train_batch_size=args.bs, per_device_eval_batch_size=64,
         gradient_accumulation_steps=1, learning_rate=args.lr, num_train_epochs=args.epochs,
-        warmup_ratio=0.05, weight_decay=0.01, bf16=True, logging_steps=50,
-        save_total_limit=1, report_to="none", dataloader_num_workers=2)
+        warmup_ratio=0.05, weight_decay=0.01, bf16=args.bf16, logging_steps=10,
+        max_grad_norm=1.0, save_total_limit=1, report_to="none", dataloader_num_workers=2)
     trainer = Trainer(model=model, args=targs, train_dataset=ds_train, eval_dataset=ds_val,
                       processing_class=tok, data_collator=DataCollatorWithPadding(tok),
                       compute_metrics=compute_metrics)
@@ -195,8 +197,8 @@ def main():
     trainer.save_model(os.path.join(args.out_dir, "adapter"))
 
     # ── t-SNE: base vs fine-tuned features (resolves the clustering) ──────────
-    samp = test.groupby("category", group_keys=False).apply(
-        lambda g: g.sample(min(100, len(g)), random_state=config.SEED))
+    samp = pd.concat([test[test.category == c].sample(
+        min(100, (test.category == c).sum()), random_state=config.SEED) for c in LABELS])
     texts, labs = samp["text"].tolist(), samp["category"].tolist()
     ft_feats = extract_features(model, tok, texts, device, max_len=args.max_len)
     sil_ft = tsne_figure(ft_feats, labs, "t-SNE of FINE-TUNED Qwen features",

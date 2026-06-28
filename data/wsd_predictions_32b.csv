@@ -16,7 +16,7 @@
 বল,শিশুরা মাঠে বল খেলছে।,bol_ball,bol_ball,True
 বল,বলটি গোলপোস্টে ঢুকে গেল।,bol_ball,bol_ball,True
 বল,অসুখের পর শরীরে আর বল নেই।,bol_strength,bol_strength,True
-বল,সব বল দিয়ে দড়িটা টানো।,bol_strength,bol_strength,True
+বল,সব বল দিয়ে দড়িটা টানো।,bol_strength,bol_speak,False
 বল,সত্যি কথাটা আমাকে বল।,bol_speak,bol_speak,True
 বল,"জোরে বল, শুনতে পাচ্ছি না।",bol_speak,bol_speak,True
 তাল,পাকা তাল দিয়ে মা পিঠা বানিয়েছেন।,tal_fruit,tal_fruit,True
@@ -55,3 +55,63 @@
 মাথা,রোদে মাথা ঢেকে বের হও।,matha_head,matha_head,True
 মাথা,সে এই দলের মাথা।,matha_leader,matha_leader,True
 মাথা,পরিবারের মাথা হিসেবে দায়িত্ব নিয়েছে।,matha_leader,matha_leader,True
+আম,গরমকালে পাকা আম খেতে দারুণ লাগে।,am_mango,am_mango,True
+আম,গাছে অনেক কাঁচা আম ধরেছে।,am_mango,am_mango,True
+আম,এটি আম জনতার দাবি।,am_common,am_common,True
+আম,আম মানুষের কথা আগে ভাবতে হবে।,am_common,am_common,True
+কাল,কাল সকালে আমরা দেখা করব।,kal_day,kal_day,True
+কাল,কাল রাতে খুব বৃষ্টি হয়েছিল।,kal_day,kal_day,True
+কাল,সেই কালে মানুষ চিঠি লিখে যোগাযোগ করত।,kal_era,kal_era,True
+কাল,এ যুগের সাথে সেই কালের অনেক তফাত।,kal_era,kal_era,True
+পর,খাওয়ার পর একটু হেঁটে নিও।,por_after,por_after,True
+পর,ছুটির পর স্কুল আবার খুলবে।,por_after,por_after,True
+পর,আপন আর পর চেনা বড় কঠিন।,por_stranger,por_stranger,True
+পর,এত বছর পরেও সে আমাকে পর ভাবে।,por_stranger,por_stranger,True
+সার,জমিতে সঠিক মাত্রায় সার দিতে হবে।,sar_fertilizer,sar_fertilizer,True
+সার,ইউরিয়া সারের দাম আবার বেড়েছে।,sar_fertilizer,sar_fertilizer,True
+সার,পুরো বইটির সার কয়েক লাইনেই বলা যায়।,sar_essence,sar_essence,True
+সার,বক্তৃতার সারটুকু আমি বুঝেছি।,sar_essence,sar_essence,True
+কর,এ বছরের আয়কর সময়মতো জমা দিয়েছি।,kor_tax,kor_tax,True
+কর,জমির খাজনা ও কর পরিশোধ করো।,kor_tax,kor_tax,True
+কর,কাজটা এখনই কর।,kor_do,kor_do,True
+কর,বসে না থেকে কিছু একটা কর।,kor_do,kor_do,True
+বাস,প্রতিদিন বাসে করে অফিসে যাই।,bash_bus,bash_bus,True
+বাস,শেষ বাসটা আজ মিস করেছি।,bash_bus,bash_bus,True
+বাস,সে ছোটবেলা থেকে এই গ্রামে বাস করে।,bash_dwell,bash_dwell,True
+বাস,শহরে বাস করা বেশ ব্যয়বহুল।,bash_dwell,bash_dwell,True
+ছাড়,ঈদ উপলক্ষে দোকানে বড় ছাড় চলছে।,chhar_discount,chhar_discount,True
+ছাড়,এই পণ্যে ২০% ছাড় দেওয়া হচ্ছে।,chhar_discount,chhar_discount,True
+ছাড়,দড়িটা একটু ছাড়ো।,chhar_release,chhar_release,True
+ছাড়,"আমার হাত ছাড়, ব্যথা লাগছে।",chhar_release,chhar_release,True
+ঘর,আমাদের নতুন ঘরে অনেক আলো-বাতাস।,ghor_room,ghor_room,True
+ঘর,ঘরের ভেতরে ঢুকে দরজা বন্ধ করো।,ghor_room,ghor_room,True
+ঘর,ছকের প্রতিটি ঘর সংখ্যা দিয়ে পূরণ করো।,ghor_cell,ghor_cell,True
+ঘর,ক্যালেন্ডারের ঘরে তারিখ লেখা আছে।,ghor_cell,ghor_cell,True
+মুখ,আনন্দে তার মুখ উজ্জ্বল হয়ে উঠল।,mukh_face,mukh_face,True
+মুখ,মুখ ধুয়ে নাশতা করতে এসো।,mukh_face,mukh_face,True
+মুখ,নদীর মুখে নৌকাগুলো নোঙর করা।,mukh_opening,mukh_opening,True
+মুখ,গুহার মুখটা বেশ সরু।,mukh_opening,mukh_opening,True
+হাত,খাওয়ার আগে হাত ধুয়ে নাও।,hat_hand,hat_hand,True
+হাত,তার হাতে একটা বই দেখলাম।,hat_hand,hat_hand,True
+হাত,কাপড়টা প্রায় তিন হাত লম্বা।,hat_cubit,hat_cubit,True
+হাত,দড়িটা পাঁচ হাত হবে।,hat_cubit,hat_cubit,True
+পাল,মাঠে গরুর পাল চরছে।,pal_herd,pal_herd,True
+পাল,আকাশে পাখির পাল উড়ে গেল।,pal_herd,pal_herd,True
+পাল,বাতাস পেয়ে নৌকার পাল ফুলে উঠল।,pal_sail,pal_sail,True
+পাল,মাঝি পাল তুলে দিল।,pal_sail,pal_sail,True
+টান,দড়িটায় জোরে টান দাও।,tan_pull,tan_pull,True
+টান,ঘুড়ির সুতোয় হঠাৎ টান পড়ল।,tan_pull,tan_pull,True
+টান,মায়ের প্রতি তার গভীর টান।,tan_affection,tan_affection,True
+টান,জন্মভূমির জন্য মনে একটা টান অনুভব করি।,tan_affection,tan_affection,True
+ছবি,দেয়ালে একটি সুন্দর ছবি ঝুলছে।,chhobi_picture,chhobi_picture,True
+ছবি,ক্যামেরায় কয়েকটা ছবি তুললাম।,chhobi_picture,chhobi_picture,True
+ছবি,নতুন ছবিটি আগামী শুক্রবার মুক্তি পাবে।,chhobi_movie,chhobi_movie,True
+ছবি,হলে গিয়ে নতুন ছবি দেখলাম।,chhobi_movie,chhobi_picture,False
+বার,আমি তিন বার চেষ্টা করেছি।,bar_times,bar_times,True
+বার,বার বার একই ভুল কোরো না।,bar_times,bar_times,True
+বার,আজ সপ্তাহের কোন বার?,bar_weekday,bar_weekday,True
+বার,শুক্রবার আমাদের ছুটির বার।,bar_weekday,bar_weekday,True
+পদ,সে ম্যানেজার পদে নিয়োগ পেয়েছে।,pod_post,pod_post,True
+পদ,এই পদের জন্য আবেদন করেছি।,pod_post,pod_post,True
+পদ,কবিতার প্রথম পদটি আবৃত্তি করো।,pod_verse,pod_verse,True
+পদ,গানের এই পদটি খুব জনপ্রিয়।,pod_verse,pod_verse,True

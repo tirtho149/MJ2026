@@ -125,28 +125,28 @@ Spearman ρ(k, entropy) = **-0.286** (p=0.535) — negative (supports the hypoth
 A self-contained, gold-labelled benchmark of ambiguous Bangla words (e.g. **চাল** = uncooked rice / a clever move / a roof; **মান** = quality / honor / mathematical value). Lexical-sample WSD: given the word, a context sentence and the candidate sense glosses, the model picks the right sense. Zero-shot and few-shot (demonstrations drawn from *other* words — no leakage).
 
 
-**Qwen2.5-3B-Instruct** — 56 instances, best **94.6%** at k=3:
+**Qwen2.5-3B-Instruct** — 116 instances, best **89.7%** at k=5:
 
 |   shots (k) |   WSD accuracy % |   n |
 |------------:|-----------------:|----:|
-|           0 |             76.8 |  56 |
-|           1 |             80.4 |  56 |
-|           3 |             94.6 |  56 |
-|           5 |             91.1 |  56 |
+|           0 |             77.6 | 116 |
+|           1 |             79.3 | 116 |
+|           3 |             85.3 | 116 |
+|           5 |             89.7 | 116 |
 
 
 ![wsd 3b](figures/fig9_wsd_3b.png)
 ![wsd per-word 3b](figures/fig9b_wsd_perword_3b.png)
 
 
-**Qwen2.5-32B-Instruct** — 56 instances, best **100.0%** at k=1:
+**Qwen2.5-32B-Instruct** — 116 instances, best **98.3%** at k=3:
 
 |   shots (k) |   WSD accuracy % |   n |
 |------------:|-----------------:|----:|
-|           0 |             98.2 |  56 |
-|           1 |            100   |  56 |
-|           3 |            100   |  56 |
-|           5 |            100   |  56 |
+|           0 |             96.6 | 116 |
+|           1 |             97.4 | 116 |
+|           3 |             98.3 | 116 |
+|           5 |             98.3 | 116 |
 
 
 ![wsd 32b](figures/fig9_wsd_32b.png)

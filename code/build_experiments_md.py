@@ -72,9 +72,40 @@ def finetune_section():
     return True
 
 
+def uncertainty_section(tag, title):
+    p = os.path.join(D, f"uncertainty_{tag}.csv")
+    if not os.path.exists(p):
+        return False
+    df = pd.read_csv(p)
+    try:
+        from scipy.stats import spearmanr
+        rho, pval = spearmanr(df["k"], df["mean_entropy"])
+    except Exception:
+        rho, pval = float("nan"), float("nan")
+    md.append(f"\n## Uncertainty quantification (MC multi-sampling) — {title}\n")
+    md.append("Hypothesis: more in-context shots reduce predictive uncertainty. "
+              "For each k we draw 10 stochastic samples (T=0.7) per email and measure "
+              "the predictive entropy / variation-ratio over the sampled labels.\n")
+    t = df.copy()
+    for c in ["mean_entropy", "mean_variation_ratio", "mean_confidence", "majority_vote_acc"]:
+        t[c] = t[c].round(3)
+    md.append("\n" + t.rename(columns={
+        "k": "shots (k)", "mean_entropy": "entropy↓", "mean_variation_ratio": "variation-ratio↓",
+        "mean_confidence": "confidence↑", "majority_vote_acc": "maj-vote acc"}).to_markdown(index=False))
+    direction = "negative (supports the hypothesis)" if rho < 0 else "non-negative"
+    sig = "statistically significant" if pval < 0.05 else "NOT statistically significant"
+    md.append(f"\nSpearman ρ(k, entropy) = **{rho:.3f}** (p={pval:.3f}) — {direction}, {sig}. "
+              f"The model is already highly confident even at k=0 (entropy ≈ "
+              f"{df['mean_entropy'].iloc[0]:.2f}), so the reduction is small; entropy is "
+              f"lowest at k={int(df.loc[df['mean_entropy'].idxmin(),'k'])}.\n")
+    md.append(f"\n![uncertainty {tag}](figures/fig6_uncertainty_{tag}.png)\n")
+    return True
+
+
 any_ = False
 any_ |= fewshot_section("3b", "Qwen2.5-3B-Instruct")
 any_ |= fewshot_section("32b", "Qwen2.5-32B-Instruct")
+any_ |= uncertainty_section("3b", "Qwen2.5-3B-Instruct")
 any_ |= finetune_section()
 
 if not any_:

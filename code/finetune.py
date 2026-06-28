@@ -130,9 +130,19 @@ def main():
     # Load in fp32 and let the Trainer's bf16=True do mixed-precision autocast.
     # Loading the whole model (incl. the fresh score head) in bf16 makes the
     # classification loss go NaN; fp32 weights + bf16 autocast is stable.
+    # IMPORTANT: load in fp32. transformers 5.8.1 creates the new `score`
+    # classification head in the config dtype (bf16) and leaves it NON-FINITE
+    # (NaN), which makes logits/loss NaN before any training.  fp32 load +
+    # explicit re-init of the head fixes it; bf16=True below then does stable
+    # mixed-precision autocast with fp32 master weights.
     model = AutoModelForSequenceClassification.from_pretrained(
         args.model, num_labels=len(LABELS), id2label=ID2LABEL, label2id=LABEL2ID,
-        problem_type="single_label_classification", attn_implementation="eager")
+        problem_type="single_label_classification", attn_implementation="eager",
+        dtype=torch.float32)
+    torch.nn.init.normal_(model.score.weight, mean=0.0, std=0.02)
+    if getattr(model.score, "bias", None) is not None:
+        torch.nn.init.zeros_(model.score.bias)
+    assert torch.isfinite(model.score.weight).all(), "score head still non-finite"
     model.config.pad_token_id = tok.pad_token_id
     lora = LoraConfig(task_type=TaskType.SEQ_CLS, r=16, lora_alpha=32, lora_dropout=0.05,
                       target_modules=["q_proj", "k_proj", "v_proj", "o_proj",

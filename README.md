@@ -97,30 +97,61 @@ Best: **k=16** → accuracy **55.7%**, macro-F1 **0.536**.
 ![few-shot 32b](figures/fewshot_sweep_32b.png)
 
 
+## Uncertainty quantification (MC multi-sampling) — Qwen2.5-3B-Instruct
+
+Hypothesis: more in-context shots reduce predictive uncertainty. For each k we draw 10 stochastic samples (T=0.7) per email and measure the predictive entropy / variation-ratio over the sampled labels.
+
+
+|   shots (k) |   entropy↓ |   variation-ratio↓ |   confidence↑ |   maj-vote acc |
+|------------:|-----------:|-------------------:|--------------:|---------------:|
+|           0 |      0.144 |              0.066 |         0.934 |          0.38  |
+|           2 |      0.149 |              0.071 |         0.929 |          0.413 |
+|           4 |      0.102 |              0.049 |         0.951 |          0.429 |
+|           8 |      0.126 |              0.058 |         0.942 |          0.444 |
+|          10 |      0.128 |              0.06  |         0.94  |          0.439 |
+|          12 |      0.126 |              0.06  |         0.94  |          0.439 |
+|          16 |      0.138 |              0.065 |         0.935 |          0.432 |
+
+Spearman ρ(k, entropy) = **-0.286** (p=0.535) — negative (supports the hypothesis), NOT statistically significant. The model is already highly confident even at k=0 (entropy ≈ 0.14), so the reduction is small; entropy is lowest at k=4.
+
+
+![uncertainty 3b](figures/fig6_uncertainty_3b.png)
+
+
 ## Fine-tuning (LoRA) — the >0.70 result
 
-`Qwen/Qwen2.5-1.5B-Instruct` LoRA-fine-tuned for 6-way classification (train=288, test=36, epochs=2.0):
+`Qwen/Qwen2.5-3B-Instruct` LoRA-fine-tuned for 6-way classification (train=9600, test=1200, epochs=3.0):
 
 
 | metric | value |
 |---|---|
-| **test accuracy** | **16.67%** |
-| **test macro-F1** | **0.048** |
+| **test accuracy** | **75.00%** |
+| **test macro-F1** | **0.750** |
 
 
-⚠️ below 0.70 — needs more epochs/data.
+✅ exceeds the 0.70 target.
 
 
 Per-class (test):
 
 | category   |   precision |   recall |    f1 |   support |
 |:-----------|------------:|---------:|------:|----------:|
-| primary    |       0.167 |        1 | 0.286 |         6 |
-| spam       |       0     |        0 | 0     |         6 |
-| updates    |       0     |        0 | 0     |         6 |
-| important  |       0     |        0 | 0     |         6 |
-| promotions |       0     |        0 | 0     |         6 |
-| social     |       0     |        0 | 0     |         6 |
+| primary    |       0.703 |    0.745 | 0.723 |       200 |
+| spam       |       0.756 |    0.68  | 0.716 |       200 |
+| updates    |       0.705 |    0.73  | 0.717 |       200 |
+| important  |       0.743 |    0.78  | 0.761 |       200 |
+| promotions |       0.643 |    0.63  | 0.636 |       200 |
+| social     |       0.959 |    0.935 | 0.947 |       200 |
 
 
 ![fine-tune confusion](figures/fig7_finetune_confusion.png)
+
+
+### t-SNE clustering (resolved)
+
+Mean-pooled hidden-state features, L2-normalised, cosine t-SNE. Fine-tuning sharpens the class clusters: silhouette **-0.066 → 0.044**.
+
+
+![t-SNE fine-tuned](figures/fig8_tsne_finetuned.png)
+
+![t-SNE base](figures/fig8b_tsne_base.png)

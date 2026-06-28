@@ -33,7 +33,7 @@ def main():
     ap.add_argument("--overgen", type=float, default=1.4)
     ap.add_argument("--eval-per-class", type=int, default=250,
                     help="balanced sample per class for the zero-shot eval")
-    ap.add_argument("--max-model-len", type=int, default=2048)
+    ap.add_argument("--max-model-len", type=int, default=4096)
     ap.add_argument("--gpu-mem-util", type=float, default=0.90)
     args = ap.parse_args()
 

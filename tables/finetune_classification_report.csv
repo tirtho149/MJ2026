@@ -1,0 +1,7 @@
+category,precision,recall,f1,support
+primary,0.167,1.0,0.286,6
+spam,0.0,0.0,0.0,6
+updates,0.0,0.0,0.0,6
+important,0.0,0.0,0.0,6
+promotions,0.0,0.0,0.0,6
+social,0.0,0.0,0.0,6

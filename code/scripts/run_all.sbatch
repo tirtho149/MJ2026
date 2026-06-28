@@ -33,5 +33,6 @@ python run_all.py \
     --eval-per-class 250 \
     --max-rounds 15 \
     --overgen 1.4 \
+    --max-model-len 4096 \
     --tp 1 \
     --out-dir data

@@ -1,0 +1,8 @@
+{
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "accuracy": 0.16666666666666666,
+  "macro_f1": 0.047619047619047616,
+  "n_train": 288,
+  "n_test": 36,
+  "epochs": 1.0
+}

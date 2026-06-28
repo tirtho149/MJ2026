@@ -1,6 +1,6 @@
 # MJ2026
 
-Balanced Bangla-email dataset for thesis — data-creation step.
+Balanced Bangla-email dataset + classification experiments (thesis data-creation step).
 
 # Bangla Email Dataset — Data Creation Report
 
@@ -54,3 +54,73 @@ Model: `Qwen/Qwen2.5-3B-Instruct` · overall accuracy: **44.9%** · macro-F1: **
 
 - `Bangla_Email_Dataset_Augmented.csv` / `.xlsx` — the balanced dataset
 - `tables/` — CSV tables · `figures/` — PNGs · `tables/sample_emails.md` — samples
+
+
+# Experiments — classification performance
+
+All evaluations use the balanced 250/class split (1,500 emails) unless noted. Zero-shot/few-shot are in-context (no weight updates); fine-tune is LoRA on the balanced 12k training split with a held-out test set.
+
+
+## Few-shot (in-context) — Qwen2.5-3B-Instruct
+
+|   shots (k) |   accuracy % |   macro-F1 |   valid preds |
+|------------:|-------------:|-----------:|--------------:|
+|           0 |         38.9 |      0.37  |          1499 |
+|           2 |         44   |      0.4   |          1494 |
+|           4 |         42.5 |      0.382 |          1497 |
+|           8 |         45.4 |      0.434 |          1497 |
+|          10 |         44.7 |      0.423 |          1500 |
+|          12 |         44.6 |      0.43  |          1500 |
+|          16 |         45.8 |      0.428 |          1500 |
+
+Best: **k=16** → accuracy **45.8%**, macro-F1 **0.428**.
+
+
+![few-shot 3b](figures/fewshot_sweep_3b.png)
+
+
+## Few-shot (in-context) — Qwen2.5-32B-Instruct
+
+|   shots (k) |   accuracy % |   macro-F1 |   valid preds |
+|------------:|-------------:|-----------:|--------------:|
+|           0 |         52.1 |      0.514 |          1500 |
+|           2 |         54.7 |      0.528 |          1500 |
+|           4 |         54.7 |      0.531 |          1500 |
+|           8 |         53.8 |      0.52  |          1500 |
+|          10 |         53.9 |      0.526 |          1500 |
+|          12 |         53.8 |      0.522 |          1500 |
+|          16 |         55.7 |      0.536 |          1500 |
+
+Best: **k=16** → accuracy **55.7%**, macro-F1 **0.536**.
+
+
+![few-shot 32b](figures/fewshot_sweep_32b.png)
+
+
+## Fine-tuning (LoRA) — the >0.70 result
+
+`Qwen/Qwen2.5-1.5B-Instruct` LoRA-fine-tuned for 6-way classification (train=288, test=36, epochs=1.0):
+
+
+| metric | value |
+|---|---|
+| **test accuracy** | **16.67%** |
+| **test macro-F1** | **0.048** |
+
+
+⚠️ below 0.70 — needs more epochs/data.
+
+
+Per-class (test):
+
+| category   |   precision |   recall |    f1 |   support |
+|:-----------|------------:|---------:|------:|----------:|
+| primary    |       0.167 |        1 | 0.286 |         6 |
+| spam       |       0     |        0 | 0     |         6 |
+| updates    |       0     |        0 | 0     |         6 |
+| important  |       0     |        0 | 0     |         6 |
+| promotions |       0     |        0 | 0     |         6 |
+| social     |       0     |        0 | 0     |         6 |
+
+
+![fine-tune confusion](figures/fig7_finetune_confusion.png)

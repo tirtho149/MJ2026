@@ -119,11 +119,18 @@ def _facet_hint(category, rng):
     return " · ".join(parts)
 
 
+# Few-shot examples are truncated to this many characters.  The corpus has
+# emails up to ~2,900 chars (esp. the `important` class); without a cap, three
+# long examples can blow past the model context window and abort the request.
+FEWSHOT_CHAR_CAP = 280
+
+
 def build_messages(category, real_by_cat, rng, k=3):
     """Chat-format prompt for one email: persona + few-shot reals + facet hint."""
     pool = real_by_cat.get(category, [])
     picks = rng.sample(pool, min(k, len(pool))) if pool else []
-    ex_block = "\n".join(f"- {p.strip()}" for p in picks if p and p.strip())
+    ex_block = "\n".join(
+        f"- {p.strip()[:FEWSHOT_CHAR_CAP]}" for p in picks if p and p.strip())
     hint = _facet_hint(category, rng)
     user = (
         f"বিভাগ: {category} — {config.CATEGORY_DEF[category]}\n\n"
